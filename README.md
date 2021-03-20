@@ -44,15 +44,14 @@ module.exports = knex;
 ```
 ### CREATE DATABASE
 
-Method get('/create')
+`Method get('/create')`
 
 ### CREATE TABLE AUTHORS
 
-Method get('/api/admin/createTable')
+`Method get('/api/admin/createTable')`
 
 ### CRUD AUTHORS
 
-#Markdown
 - `Method post('/api/admin/authors') req.body {name, picture}`
 - `Method get('/api/admin/authors')`
 - `Method put('/api/admin/authors/:idAuthor') req.params: const {idAuthor},req.body:{name, picture}`
@@ -60,11 +59,10 @@ Method get('/api/admin/createTable')
 
 ### CREATE TABLE ARTICLES
 
-Method get('/api/admin/create/articles')
+`Method get('/api/admin/create/articles')`
 
 ### CRUD ARTICLES
 
-#Markdown
 - `Method get('/api/admin/articles')`
 - `Method post('/api/admin/articles') req.body: {idAuthor, category, title, summary, firstParagraph, body}`
 - `Method put('/api/admin/articles/:idArticle') req.params: {idArticle}, req.body: {idAuthor, category, title, summary, firstParagraph, body}`
@@ -96,7 +94,7 @@ Method get('/api/admin/create/articles')
 👤 **Yairina Boada**
 
 * Github: [@Yairix](https://github.com/Yairix)
-* LinkedIn: [@https:\/\/www.linkedin.com\/in\/yairina-boada-151198154\/](https://linkedin.com/in/https:\/\/www.linkedin.com\/in\/yairina-boada-151198154\/)
+* LinkedIn: [https://www.linkedin.com/in/yairina-boada-151198154/](https://www.linkedin.com/in/yairina-boada-151198154/)
 
 ## Show your support
 
@@ -104,4 +102,3 @@ Give a ⭐️ if this project helped you!
 
 
 ***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
