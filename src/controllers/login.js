@@ -7,7 +7,7 @@ class Login{
 
         let articlesCall = []
         let displayArt = []
-        if(req.user){  
+        if(req.isAuthenticated()){  
             database("articles").join("authors","articles.idAuthor","=", "authors.idAuthor").where({idArticle:idArticle}).then(data =>{
             
                 for (const row of data) {

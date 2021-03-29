@@ -3,7 +3,7 @@ const database = require('../database/connection')
 class Authors{
 
     createDatabase(req, res){
-        database.schema.raw('CREATE DATABASE IF NOT EXISTS jungleDevs;').then(data =>{
+        database.schema.raw('CREATE DATABASE IF NOT EXISTS Blog;').then(data =>{
             res.json({message: "Database created with success!"})
         }).catch(error =>{
             res.json(error)
@@ -11,7 +11,7 @@ class Authors{
     };
 
     createTable(req, res){
-        database.schema.raw('USE jungleDevs;').raw('CREATE TABLE IF NOT EXISTS authors(idAuthor INT AUTO_INCREMENT NOT NULL PRIMARY KEY, name VARCHAR(65), picture VARCHAR(255));').then(data =>{
+        database.schema.raw('USE Blog;').raw('CREATE TABLE IF NOT EXISTS authors(idAuthor INT AUTO_INCREMENT NOT NULL PRIMARY KEY, name VARCHAR(65), picture VARCHAR(255));').then(data =>{
             res.json({message: "Table created with success!"})
         }).catch(error =>{
             res.json(error)
@@ -42,7 +42,7 @@ class Authors{
         const {name, picture} = req.body
 
         database('authors').where({idAuthor:idAuthor}).update({ name:name, picture:picture}).then(data =>{
-            res.json({message:"Author edited successfully!"})
+            res.json({message:"Author edited successfully!", "New data":req.body})
         }).catch(error =>{
             res.json(error)})
     };

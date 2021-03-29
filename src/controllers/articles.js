@@ -3,7 +3,7 @@ const database = require('../database/connection');
 class Articles{
 
     createTable(req, res){
-        database.schema.raw('USE jungleDevs;').raw('CREATE TABLE IF NOT EXISTS articles(idArticle INT AUTO_INCREMENT NOT NULL PRIMARY KEY, idAuthor INT NOT NULL, category VARCHAR(65) NOT NULL, title VARCHAR(85) NOT NULL, summary TEXT NOT NULL, firstParagraph TEXT NOT NULL, body TEXT NOT NULL,CONSTRAINT idAuthor FOREIGN KEY (idAuthor) REFERENCES authors (idAuthor));').then(data =>{
+        database.schema.raw('USE Blog;').raw('CREATE TABLE IF NOT EXISTS articles(idArticle INT AUTO_INCREMENT NOT NULL PRIMARY KEY, idAuthor INT NOT NULL, category VARCHAR(65) NOT NULL, title VARCHAR(85) NOT NULL, summary TEXT NOT NULL, firstParagraph TEXT NOT NULL, body TEXT NOT NULL,CONSTRAINT idAuthor FOREIGN KEY (idAuthor) REFERENCES authors (idAuthor));').then(data =>{
             res.json({message: "Table created with success!"})
         }).catch(error =>{
             res.json(error)
@@ -33,7 +33,7 @@ class Articles{
         const {idAuthor, category, title, summary, firstParagraph, body} = req.body
 
         database('articles').where({idArticle:idArticle}).update({ idAuthor:idAuthor, category:category, title:title, summary:summary, firstParagraph:firstParagraph,body:body }).then(data =>{
-            res.json({message:"Article edited successfully!", "New Data":req.body, "Data":data})
+            res.json({message:"Article edited successfully!", "New Data":req.body})
         }).catch(error =>{
             res.json(error)})
     };

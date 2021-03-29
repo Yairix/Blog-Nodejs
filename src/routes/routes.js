@@ -1,4 +1,3 @@
-//const connection = require('../database/connection');
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
@@ -6,35 +5,34 @@ const Authors = require('../controllers/authors');
 const Articles = require('../controllers/articles');
 const Users = require('../controllers/users');
 const Login = require('../controllers/login');
-const database = require('../database/connection');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-
+const database = require('../database/connection');
 
 router.use(cookieParser('My top secret'));
 
 router.use(session({
     secret: 'My top secret',
     resave: true,
-    saveUninitialized: true
-   // cookie: { maxAge: 20000 }
+    saveUninitialized: true,
+    cookie: { maxAge: 600000 } // 10 minutes
 }));
 
 router.use(passport.initialize());
 router.use(passport.session());
 
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+  done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-   // User.findById(id, function(err, user) {
-    done(null, {id:1, name:"Hada"} )
-  //  });
+  database('users').where({id:id}).then(data => {
+  done(null,{id:data[0].id, name:data[0]});
+  })
 });
 
 // CREATE DATABASE
-router.get('/create', Authors.createDatabase);
+router.get('/create-database', Authors.createDatabase);
 
 //CREATE TABLE AUTHORS
 router.get('/api/admin/createTable', Authors.createTable);
@@ -64,6 +62,25 @@ router.get('/api/admin/users', Users.readUsers);
 //SIGN-UP
 router.post('/api/sign-up', Users.signUp);
 
+router.get('/', (req,res,next)=>{
+  if(req.isAuthenticated()) return next();
+  //is not logined => /login
+  res.json({Status:'Username or password invalid'})
+},(req,res)=>{
+  //is logined
+  res.send("<h1>Welcome to my Blog!</h1>")
+});
+
+router.post("/login", passport.authenticate('local',{
+  //Receive credentials and logIn
+  successRedirect: "/",
+  failureRedirect: "/"
+}));
+
+router.get('/logout', function (req, res) {
+  req.logout();
+  res.json({Status:"Log Out"});
+});
 //PASSWORD CHANGE
 router.put('/api/users/:username', Users.editUsers);
 

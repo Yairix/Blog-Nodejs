@@ -16,11 +16,6 @@ npm install
 npm run start
 ```
 
-## Run tests
-
-```sh
-npm run test
-```
 ### Create field connection
 
 `src/database/connection.js`
