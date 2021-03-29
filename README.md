@@ -39,7 +39,7 @@ module.exports = knex;
 ```
 ### CREATE DATABASE
 
-`Method get('/create')`
+`Method get('/create-database')`
 
 ### CREATE TABLE AUTHORS
 
